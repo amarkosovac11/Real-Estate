@@ -1,0 +1,358 @@
+/* General Styles */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Section 1 - Background Image */
+.section1 {
+    position: relative;
+    background: url('img/bg.jpg') no-repeat center center/cover;
+    color: white;
+
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Dark Overlay for Section 1 */
+.section1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Center and Style Title */
+.search-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+    /* Ensures spacing above the form */
+}
+
+/* Centered Search Box */
+.search-container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.search-form input,
+.search-form select,
+.search-form button {
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+}
+
+.search-form input,
+.search-form select {
+    width: 250px;
+    height: 50px;
+}
+
+/* Improve Button Appearance */
+.search-form button {
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    height: 50px;
+    font-size: 1.2rem;
+}
+
+.search-form button:hover {
+    background: #0056b3;
+}
+
+/* Navbar Styling */
+.navbar {
+    padding: 15px;
+}
+
+.navbar-nav {
+    flex: 1;
+    justify-content: center;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 15px;
+}
+
+.navbar .btn {
+    margin-left: 15px;
+}
+
+
+
+
+
+
+#section2 {
+    overflow: hidden; /* Prevents cut-off content */
+    transition: max-height 0.5s ease-in-out;
+    max-height: 600px; /* Adjust to fit 3 cards initially */
+
+    padding-top: 60px; /* Adjust the value as needed */
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    
+    background-color: #f8f9fa;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.property-card.hidden {
+    display: none;
+}
+
+
+
+
+
+#section2.expanded {
+   
+    max-height: 2000px;;
+}
+
+.section2 h2 {
+    margin-bottom: 40px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+#property-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; /* Centers the cards */
+}
+
+/* RESPONSIVE STYLES */
+
+/* General styles for the property cards */
+#property-list .card {
+    border: 1px solid #ddd; /* Add border to card */
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px; /* Reduce space between the rows */
+    height: auto; /* Adjust height based on content */
+    display: flex;
+    flex-direction: column; /* Make card content stack vertically */
+    width: 100%; /* Cards take full width within the column */
+}
+
+/* Set image to scale better and maintain proper aspect ratio */
+#property-list .card img {
+    max-height: 150px; /* Limit image height */
+    width: 100%; /* Ensure the image takes full width of the card */
+    object-fit: cover; /* Ensure image covers the area without stretching */
+}
+
+/* Reduce card content padding on mobile */
+#property-list .card-body {
+    padding: 10px; /* Reduce padding for smaller cards */
+}
+
+/* Mobile-first styling: Full width for small screens (phones) */
+@media (max-width: 576px) {
+    #property-list .col-12 {
+        margin-bottom: 20px;
+    }
+
+    #property-list .card {
+        height: 200px; /* Set a max height for the entire card */
+        display: block; /* Prevent flexbox behavior on small screens */
+    }
+
+    /* Optionally reduce card font sizes for mobile */
+    #property-list .card-title {
+        font-size: 1.1rem;
+    }
+
+    #property-list .card-text {
+        font-size: 0.9rem;
+    }
+}
+
+/* Medium screens (tablets) and up */
+@media (min-width: 576px) {
+    #property-list .col-sm-6 {
+        margin-bottom: 15px;
+    }
+    .card {
+        flex: 1 0 48%; /* Cards take up about 48% of the width */
+        margin-right: 10px; /* Add margin between cards */
+        margin-left: 10px;  /* Add margin between cards */
+    }
+}
+
+/* Medium to large screens (small tablets to laptops) */
+@media (min-width: 768px) {
+    #property-list .col-md-4 {
+        margin-bottom: 15px;
+        flex: 0 0 32%;
+    }
+    .card {
+        flex: 1 0 32%; /* Cards take up about 32% of the width */
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+
+/* Large screens (desktops) and up */
+@media (min-width: 992px) {
+    #property-list .col-lg-3 {
+        /* 4 items per row */
+        margin-bottom: 20px;
+    }
+}
+
+  
+
+/* SECTION 3 */
+.section3 {
+    
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+
+    background-color: #ADD8E6;
+    padding: 80px 0;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1); /* Shadow at the top */
+  }
+  
+  .section3 h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .section3 h4 {
+    font-size: 1.75rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .section3 p {
+    color: #666;
+    line-height: 1.8;
+  }
+  
+  .section3 .feature-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .section3 .feature-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+  }
+  
+  .section3 .feature-card i {
+    color: #007bff;
+  }
+  
+  .section3 .text-center p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .section3 .img-fluid {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 80%; /* Reduce width to 80% of the container */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .section3 .col-md-6 {
+    padding: 20px; /* Adds padding around the content inside each column */
+  }
+
+  .contact-info {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    padding: 20px;
+    text-align: center; /* Ensures consistency with other boxes */
+}
+
+.contact-info:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+}
+  
+  .contact-info h3 {
+    margin-bottom: 1px;
+  }
+  
+  .contact-info ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .contact-info li {
+    margin-bottom: 10px;
+  }
+  
+  .contact-info a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
