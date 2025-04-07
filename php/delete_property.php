@@ -49,7 +49,7 @@ $success = $stmt->execute();
 
 if ($success) {
     writeLog("Deleted property ID $propertyId by agent $agentId");
-    echo json_encode(['success' => true, 'message' => 'Property deleted successfully']);
+    echo json_encode(['success' => true, 'message' => '✅ Property has been deleted successfully.']);
 } else {
     writeLog("Failed to delete property ID $propertyId");
     echo json_encode(['success' => false, 'message' => 'Delete failed']);
