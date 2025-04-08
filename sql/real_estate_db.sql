@@ -32,13 +32,10 @@ CREATE TABLE `client` (
   `ClientID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   `ContactInfo` varchar(100) DEFAULT NULL,
-  `ClientType` enum('Buyer','Renter') NOT NULL,
   PRIMARY KEY (`ClientID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `client` (`Name`, `ContactInfo`, `ClientType`) VALUES
-('Faris Mehmedović', 'faris@example.com', 'Buyer'),
-('Lejla Hasić', 'lejla@example.com', 'Renter');
+
 
 -- Table structure for table `property`
 CREATE TABLE `property` (
