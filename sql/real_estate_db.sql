@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2025 at 05:20 PM
+-- Generation Time: Apr 08, 2025 at 05:51 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -96,16 +96,17 @@ CREATE TABLE `listing` (
   `ListingID` int(11) NOT NULL,
   `PropertyID` int(11) NOT NULL,
   `AgentID` int(11) NOT NULL,
-  `ListingDate` date DEFAULT curdate()
+  `ListingDate` date DEFAULT curdate(),
+  `ApprovedByAdminID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `listing`
 --
 
-INSERT INTO `listing` (`ListingID`, `PropertyID`, `AgentID`, `ListingDate`) VALUES
-(19, 41, 16, '2025-04-08'),
-(20, 42, 16, '2025-04-08');
+INSERT INTO `listing` (`ListingID`, `PropertyID`, `AgentID`, `ListingDate`, `ApprovedByAdminID`) VALUES
+(19, 41, 16, '2025-04-08', NULL),
+(20, 42, 16, '2025-04-08', NULL);
 
 -- --------------------------------------------------------
 
@@ -189,16 +190,17 @@ CREATE TABLE `transaction` (
   `AgentID` int(11) NOT NULL,
   `TransactionDate` date DEFAULT curdate(),
   `Type` enum('Sale','Rent') NOT NULL,
-  `FinalPrice` decimal(10,2) NOT NULL
+  `FinalPrice` decimal(10,2) NOT NULL,
+  `AdminID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`TransactionID`, `PropertyID`, `ClientID`, `AgentID`, `TransactionDate`, `Type`, `FinalPrice`) VALUES
-(9, 41, 7, 16, '2025-04-08', 'Sale', 150000.00),
-(10, 42, 7, 16, '2025-04-08', 'Rent', 140000.00);
+INSERT INTO `transaction` (`TransactionID`, `PropertyID`, `ClientID`, `AgentID`, `TransactionDate`, `Type`, `FinalPrice`, `AdminID`) VALUES
+(9, 41, 7, 16, '2025-04-08', 'Sale', 150000.00, NULL),
+(10, 42, 7, 16, '2025-04-08', 'Rent', 140000.00, NULL);
 
 --
 -- Indexes for dumped tables
@@ -231,7 +233,8 @@ ALTER TABLE `client`
 ALTER TABLE `listing`
   ADD PRIMARY KEY (`ListingID`),
   ADD KEY `PropertyID` (`PropertyID`),
-  ADD KEY `AgentID` (`AgentID`);
+  ADD KEY `AgentID` (`AgentID`),
+  ADD KEY `fk_listing_admin` (`ApprovedByAdminID`);
 
 --
 -- Indexes for table `owner`
@@ -244,7 +247,8 @@ ALTER TABLE `owner`
 -- Indexes for table `property`
 --
 ALTER TABLE `property`
-  ADD PRIMARY KEY (`PropertyID`);
+  ADD PRIMARY KEY (`PropertyID`),
+  ADD KEY `fk_owner` (`OwnerID`);
 
 --
 -- Indexes for table `rentaldetails`
@@ -259,7 +263,8 @@ ALTER TABLE `transaction`
   ADD PRIMARY KEY (`TransactionID`),
   ADD KEY `PropertyID` (`PropertyID`),
   ADD KEY `ClientID` (`ClientID`),
-  ADD KEY `AgentID` (`AgentID`);
+  ADD KEY `AgentID` (`AgentID`),
+  ADD KEY `fk_transaction_admin` (`AdminID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -315,8 +320,15 @@ ALTER TABLE `transaction`
 -- Constraints for table `listing`
 --
 ALTER TABLE `listing`
+  ADD CONSTRAINT `fk_listing_admin` FOREIGN KEY (`ApprovedByAdminID`) REFERENCES `admin` (`AdminID`) ON DELETE SET NULL,
   ADD CONSTRAINT `listing_ibfk_1` FOREIGN KEY (`PropertyID`) REFERENCES `property` (`PropertyID`) ON DELETE CASCADE,
   ADD CONSTRAINT `listing_ibfk_2` FOREIGN KEY (`AgentID`) REFERENCES `agent` (`AgentID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `property`
+--
+ALTER TABLE `property`
+  ADD CONSTRAINT `fk_owner` FOREIGN KEY (`OwnerID`) REFERENCES `owner` (`OwnerID`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `rentaldetails`
@@ -328,6 +340,7 @@ ALTER TABLE `rentaldetails`
 -- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
+  ADD CONSTRAINT `fk_transaction_admin` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`) ON DELETE SET NULL,
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`PropertyID`) REFERENCES `property` (`PropertyID`) ON DELETE CASCADE,
   ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`ClientID`) REFERENCES `client` (`ClientID`) ON DELETE CASCADE,
   ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`AgentID`) REFERENCES `agent` (`AgentID`) ON DELETE CASCADE;
