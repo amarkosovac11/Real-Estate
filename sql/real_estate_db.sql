@@ -12,21 +12,6 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `real_estate_db`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
 CREATE TABLE `admin` (
   `AdminID` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -35,18 +20,10 @@ CREATE TABLE `admin` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `admin`
---
 
 INSERT INTO `admin` (`AdminID`, `name`, `username`, `contactInfo`, `password`) VALUES
 (1, 'Admin User', 'admin', 'admin@example.com', '0192023a7bbd73250516f069df18b500');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `agent`
---
 
 CREATE TABLE `agent` (
   `AgentID` int(11) NOT NULL,
@@ -56,19 +33,11 @@ CREATE TABLE `agent` (
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `agent`
---
 
 INSERT INTO `agent` (`AgentID`, `Name`, `ContactInfo`, `username`, `password`) VALUES
 (16, 'agentName', '123', 'agent1', '202cb962ac59075b964b07152d234b70'),
 (17, 'agentName', '123', 'agent2', '202cb962ac59075b964b07152d234b70');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `client`
---
 
 CREATE TABLE `client` (
   `ClientID` int(11) NOT NULL,
@@ -78,19 +47,11 @@ CREATE TABLE `client` (
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `client`
---
 
 INSERT INTO `client` (`ClientID`, `Name`, `ContactInfo`, `username`, `password`) VALUES
 (7, 'clientName', '123', 'client1', '202cb962ac59075b964b07152d234b70'),
 (8, 'clientName', '123', 'client2', '202cb962ac59075b964b07152d234b70');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `listing`
---
 
 CREATE TABLE `listing` (
   `ListingID` int(11) NOT NULL,
@@ -100,19 +61,11 @@ CREATE TABLE `listing` (
   `ApprovedByAdminID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `listing`
---
 
 INSERT INTO `listing` (`ListingID`, `PropertyID`, `AgentID`, `ListingDate`, `ApprovedByAdminID`) VALUES
 (19, 41, 16, '2025-04-08', NULL),
 (20, 42, 16, '2025-04-08', NULL);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `owner`
---
 
 CREATE TABLE `owner` (
   `OwnerID` int(11) NOT NULL,
@@ -122,19 +75,12 @@ CREATE TABLE `owner` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `owner`
---
+
 
 INSERT INTO `owner` (`OwnerID`, `Name`, `username`, `ContactInfo`, `password`) VALUES
 (2, 'ownerName', 'owner1', '123', '202cb962ac59075b964b07152d234b70'),
 (3, 'ownerName', 'owner2', '123', '202cb962ac59075b964b07152d234b70');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `property`
---
 
 CREATE TABLE `property` (
   `PropertyID` int(11) NOT NULL,
@@ -148,9 +94,6 @@ CREATE TABLE `property` (
   `OwnerID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `property`
---
 
 INSERT INTO `property` (`PropertyID`, `AgentID`, `Address`, `Type`, `Size`, `Price`, `Status`, `ImageURL`, `OwnerID`) VALUES
 (41, 16, 'address1', 'Villa', 120, 150000.00, '', 'uploads/67f5375218ea2_vila1.jpg', NULL),
@@ -158,11 +101,7 @@ INSERT INTO `property` (`PropertyID`, `AgentID`, `Address`, `Type`, `Size`, `Pri
 (43, 0, 'address3', 'Apartment', 125, 160000.00, 'For Sale', 'uploads/67f5394f0ccbd_house3.jpg', 2),
 (44, 0, 'address4', 'House', 120, 170000.00, 'For Sale', 'uploads/67f53969e31fd_house4.jpg', 2);
 
--- --------------------------------------------------------
 
---
--- Table structure for table `rentaldetails`
---
 
 CREATE TABLE `rentaldetails` (
   `TransactionID` int(11) NOT NULL,
@@ -170,18 +109,10 @@ CREATE TABLE `rentaldetails` (
   `EndDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `rentaldetails`
---
 
 INSERT INTO `rentaldetails` (`TransactionID`, `StartDate`, `EndDate`) VALUES
 (10, '2025-04-03', '2025-04-25');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `transaction`
---
 
 CREATE TABLE `transaction` (
   `TransactionID` int(11) NOT NULL,
@@ -194,71 +125,48 @@ CREATE TABLE `transaction` (
   `AdminID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `transaction`
---
 
 INSERT INTO `transaction` (`TransactionID`, `PropertyID`, `ClientID`, `AgentID`, `TransactionDate`, `Type`, `FinalPrice`, `AdminID`) VALUES
 (9, 41, 7, 16, '2025-04-08', 'Sale', 150000.00, NULL),
 (10, 42, 7, 16, '2025-04-08', 'Rent', 140000.00, NULL);
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `admin`
---
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`AdminID`),
   ADD UNIQUE KEY `username` (`username`);
 
---
--- Indexes for table `agent`
---
+
 ALTER TABLE `agent`
   ADD PRIMARY KEY (`AgentID`),
   ADD UNIQUE KEY `username` (`username`);
 
---
--- Indexes for table `client`
---
+
 ALTER TABLE `client`
   ADD PRIMARY KEY (`ClientID`),
   ADD UNIQUE KEY `username` (`username`);
 
---
--- Indexes for table `listing`
---
+
 ALTER TABLE `listing`
   ADD PRIMARY KEY (`ListingID`),
   ADD KEY `PropertyID` (`PropertyID`),
   ADD KEY `AgentID` (`AgentID`),
   ADD KEY `fk_listing_admin` (`ApprovedByAdminID`);
 
---
--- Indexes for table `owner`
---
+
 ALTER TABLE `owner`
   ADD PRIMARY KEY (`OwnerID`),
   ADD UNIQUE KEY `username` (`username`);
 
---
--- Indexes for table `property`
---
+
 ALTER TABLE `property`
   ADD PRIMARY KEY (`PropertyID`),
   ADD KEY `fk_owner` (`OwnerID`);
 
---
--- Indexes for table `rentaldetails`
---
+
 ALTER TABLE `rentaldetails`
   ADD PRIMARY KEY (`TransactionID`);
 
---
--- Indexes for table `transaction`
---
+
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`TransactionID`),
   ADD KEY `PropertyID` (`PropertyID`),
@@ -266,79 +174,49 @@ ALTER TABLE `transaction`
   ADD KEY `AgentID` (`AgentID`),
   ADD KEY `fk_transaction_admin` (`AdminID`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `admin`
---
 ALTER TABLE `admin`
   MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT for table `agent`
---
+
 ALTER TABLE `agent`
   MODIFY `AgentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
---
--- AUTO_INCREMENT for table `client`
---
+
 ALTER TABLE `client`
   MODIFY `ClientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
---
--- AUTO_INCREMENT for table `listing`
---
+
 ALTER TABLE `listing`
   MODIFY `ListingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
---
--- AUTO_INCREMENT for table `owner`
---
+
 ALTER TABLE `owner`
   MODIFY `OwnerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT for table `property`
---
+
 ALTER TABLE `property`
   MODIFY `PropertyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
---
--- AUTO_INCREMENT for table `transaction`
---
+
 ALTER TABLE `transaction`
   MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `listing`
---
 ALTER TABLE `listing`
   ADD CONSTRAINT `fk_listing_admin` FOREIGN KEY (`ApprovedByAdminID`) REFERENCES `admin` (`AdminID`) ON DELETE SET NULL,
   ADD CONSTRAINT `listing_ibfk_1` FOREIGN KEY (`PropertyID`) REFERENCES `property` (`PropertyID`) ON DELETE CASCADE,
   ADD CONSTRAINT `listing_ibfk_2` FOREIGN KEY (`AgentID`) REFERENCES `agent` (`AgentID`) ON DELETE CASCADE;
 
---
--- Constraints for table `property`
---
+
 ALTER TABLE `property`
   ADD CONSTRAINT `fk_owner` FOREIGN KEY (`OwnerID`) REFERENCES `owner` (`OwnerID`) ON DELETE SET NULL;
 
---
--- Constraints for table `rentaldetails`
---
+
 ALTER TABLE `rentaldetails`
   ADD CONSTRAINT `rentaldetails_ibfk_1` FOREIGN KEY (`TransactionID`) REFERENCES `transaction` (`TransactionID`) ON DELETE CASCADE;
 
---
--- Constraints for table `transaction`
---
+
 ALTER TABLE `transaction`
   ADD CONSTRAINT `fk_transaction_admin` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`) ON DELETE SET NULL,
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`PropertyID`) REFERENCES `property` (`PropertyID`) ON DELETE CASCADE,
@@ -346,6 +224,4 @@ ALTER TABLE `transaction`
   ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`AgentID`) REFERENCES `agent` (`AgentID`) ON DELETE CASCADE;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
