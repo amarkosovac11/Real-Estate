@@ -84,20 +84,12 @@ For detailed ERD and table structure, see the `docs/` folder (if applicable).
 
 ---
 
-## 🛠️ Installation
 
-1. **Clone the repository:**
-
-```bash
-git clone https://github.com/your-username/real-estate-dbms.git
-cd real-estate-dbms
-```
 
 ## 👨‍💻 Authors
 
 - **Amar Kosovac**
 - **Faris Mujačić**
 
-Developed by **Amar Kosovac** and **Faris Mujačić**  
-as part of **CS306 - Database Management**, Spring 2025, Sarajevo.
+Spring 2025, Sarajevo.
 
